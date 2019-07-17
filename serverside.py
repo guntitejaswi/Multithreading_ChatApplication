@@ -14,6 +14,9 @@ class ClientThread(Thread):
     def run(self):
         while True:
             data = conn.recv(2048)
+            if not data:
+                print(ip, " closed the connection")
+                break
             print(ip, " >", data.decode())
             msg = input("Me > ")
             if msg == 'exit':
@@ -22,8 +25,8 @@ class ClientThread(Thread):
             conn.send(msg.encode())   # echo
 
 
-# Multi-threaded Python server : TCP Server Socket Program Stub
-TCP_IP = '0.0.0.0'
+# Multi-threaded Python server
+TCP_IP = ''
 TCP_PORT = 2004
 BUFFER_SIZE = 20  # Usually 1024, but we need quick response
 
